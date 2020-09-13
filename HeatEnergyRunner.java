@@ -5,26 +5,30 @@ public class HeatEnergyRunner {
 	public static void main(String[] args) { 
 
 		Scanner reader = new Scanner(System.in); 
-System.out.println("Enter the mass of the water, in grams"); double mass = reader.nextDouble(); 
-System.out.println("Enter the intial temperature of the water, in Celsius"); 
-		    double initialTemp = reader.nextDouble(); 
-		    if(initialTemp < -273.14) 
-	initialTemp = -273.14; System.out.println("Enter the final temperature of the water, in Celsius"); 
+        System.out.println("Enter the mass of the water, in grams"); double mass = reader.nextDouble(); 
+        System.out.println("Enter the intial temperature of the water, in Celsius"); 
+	    double initialTemp = reader.nextDouble(); 
+		if(initialTemp < -273.14) 
+	        initialTemp = -273.14; 
+	    System.out.println("Enter the final temperature of the water, in Celsius"); 
 		double finalTemp = reader.nextDouble(); 
-		if(finalTemp < -273.14) 
-			finalTemp = -273.14; 
+	    if(finalTemp < -273.14) 
+		    finalTemp = -273.14; 
 		
 		String initialPhase = "liquid"; 
 		if(initialTemp < 0) 
-	initialPhase = "solid"; if(initialTemp > 100) 
-			initialPhase = "vapor"; 
+	        initialPhase = "solid"; 
+	    if(initialTemp > 100) 
+		    initialPhase = "vapor"; 
 		
 		String finalPhase = "liquid"; 
 		if(finalTemp < 0) 
-	finalPhase = "solid"; if(finalTemp > 100) 
-			finalPhase = "vapor"; 
+        	finalPhase = "solid"; 
+        if(finalTemp > 100) 
+		    finalPhase = "vapor"; 
 		
-System.out.println("Mass: " + mass + "g"); System.out.println("Initial tempeature: " + initialTemp + "C " + initialPhase); 
+        System.out.println("Mass: " + mass + "g"); 
+        System.out.println("Initial tempeature: " + initialTemp + "C " + initialPhase); 
 		System.out.println("Final tempeature: " + finalTemp + "C " + finalPhase + "\n"); 
 
 		boolean endothermic = false; 
@@ -34,15 +38,25 @@ System.out.println("Mass: " + mass + "g"); System.out.println("Initial tempeatur
 		double heatEnergy = 0; 
 			
 	    //initial phase: solid 
-	    if(initialPhase.equals("solid")) { 
-			    heatEnergy += tempChangeSolid(mass, initialTemp, finalTemp, finalPhase, endothermic); 
+	    
+	    if(initialPhase.equals("solid")) 
+	    { 
+	        heatEnergy += tempChangeSolid(mass, initialTemp, finalTemp, finalPhase, endothermic); 
 
-		    	if(!finalPhase.equals("solid")) { 
-	heatEnergy += fusion(mass, endothermic); heatEnergy += tempChangeLiquid(mass, 0, finalTemp, finalPhase, endothermic); 
-			} if(finalPhase.equals("vapor")) { 
-heatEnergy += vaporization(mass, endothermic); heatEnergy += tempChangeVapor(mass, 100, finalTemp, finalPhase, endothermic); 
+	        if(!finalPhase.equals("solid")) 
+	        { 
+    	        heatEnergy += fusion(mass, endothermic); 
+    	        heatEnergy += tempChangeLiquid(mass, 0, finalTemp, finalPhase, endothermic); 
+    	    
+            } 
+	        if(finalPhase.equals("vapor")) 
+	        { 
+                heatEnergy += vaporization(mass, endothermic); 
+                heatEnergy += tempChangeVapor(mass, 100, finalTemp, finalPhase, endothermic); 
 
-			} }//end of section for initial phase: solid 
+			} 
+	        
+	    }//end of section for initial phase: solid 
 
 				    //initial phase: liquid 
 				    if(initialPhase.equals("liquid")) { 
@@ -117,3 +131,4 @@ public static double tempChangeLiquid(double mass, double startTemp, double endT
 		
 		//supporting methods here 
 } //entire class ends here 
+
