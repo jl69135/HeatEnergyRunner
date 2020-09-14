@@ -1,11 +1,14 @@
 import java.util.Scanner; 
 
-public class HeatEnergyRunner { 
+public class HeatEnergyRunner 
+{ 
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) 
+	{ 
 
 		Scanner reader = new Scanner(System.in); 
-        System.out.println("Enter the mass of the water, in grams"); double mass = reader.nextDouble(); 
+        System.out.println("Enter the mass of the water, in grams"); 
+        double mass = reader.nextDouble(); 
         System.out.println("Enter the intial temperature of the water, in Celsius"); 
 	    double initialTemp = reader.nextDouble(); 
 		if(initialTemp < -273.14) 
@@ -42,93 +45,143 @@ public class HeatEnergyRunner {
 	    if(initialPhase.equals("solid")) 
 	    { 
 	        heatEnergy += tempChangeSolid(mass, initialTemp, finalTemp, finalPhase, endothermic); 
-
+	        
 	        if(!finalPhase.equals("solid")) 
 	        { 
     	        heatEnergy += fusion(mass, endothermic); 
     	        heatEnergy += tempChangeLiquid(mass, 0, finalTemp, finalPhase, endothermic); 
-    	    
             } 
 	        if(finalPhase.equals("vapor")) 
 	        { 
                 heatEnergy += vaporization(mass, endothermic); 
                 heatEnergy += tempChangeVapor(mass, 100, finalTemp, finalPhase, endothermic); 
-
 			} 
 	        
-	    }//end of section for initial phase: solid 
+	    }
+	    
+	    //end of section for initial phase: solid 
 
-				    //initial phase: liquid 
-				    if(initialPhase.equals("liquid")) { 
-				    	heatEnergy += tempChangeLiquid(mass, initialTemp, finalTemp, finalPhase, endothermic); 
+		//initial phase: liquid 
+			
+		if(initialPhase.equals("liquid")) 
+		{ 
+			heatEnergy += tempChangeLiquid(mass, initialTemp, finalTemp, finalPhase, endothermic); 
 
-				    	if(finalPhase.equals("solid")) { 
-			    heatEnergy += fusion(mass, endothermic); heatEnergy += tempChangeSolid(mass, 0, finalTemp, finalPhase, endothermic); 
-    
-					} if(finalPhase.equals("vapor")) { 
-			heatEnergy += vaporization(mass, endothermic); heatEnergy += tempChangeVapor(mass, 100, finalTemp, finalPhase, endothermic); 
-
+			if(finalPhase.equals("solid")) 
+			{ 
+			    heatEnergy += fusion(mass, endothermic); 
+			    heatEnergy += tempChangeSolid(mass, 0, finalTemp, finalPhase, endothermic); 
+			} 
+			if(finalPhase.equals("vapor")) 
+			{ 
+		    	heatEnergy += vaporization(mass, endothermic); 
+			    heatEnergy += tempChangeVapor(mass, 100, finalTemp, finalPhase, endothermic); 
+            } 
 					
-				} }//end of section for initial phase: liquid 
+    	}
+		//end of section for initial phase: liquid 
 
-					//initial phase: vapor 
-					if(initialPhase.equals("vapor")) { 
-						heatEnergy += tempChangeVapor(mass, initialTemp, finalTemp, finalPhase, endothermic); 
+		//initial phase: vapor 
+		if(initialPhase.equals("vapor")) 
+		{ 
+			heatEnergy += tempChangeVapor(mass, initialTemp, finalTemp, finalPhase, endothermic); 
 
-						if(!finalPhase.equals("vapor")) { 
-				heatEnergy += vaporization(mass, endothermic); heatEnergy += tempChangeLiquid(mass, 100, finalTemp, finalPhase, endothermic); 
-
-						} if(finalPhase.equals("solid")) { 
-				heatEnergy += fusion(mass, endothermic); heatEnergy += tempChangeSolid(mass, 0, finalTemp, finalPhase, endothermic); 
-
-				} }//end of section for initial phase: vapor 
-
+			if(!finalPhase.equals("vapor")) 
+			{ 
+				heatEnergy += vaporization(mass, endothermic); 
+				heatEnergy += tempChangeLiquid(mass, 100, finalTemp, finalPhase, endothermic); 
+			}
+	        if(finalPhase.equals("solid")) 
+	        { 
+				heatEnergy += fusion(mass, endothermic); 
+				heatEnergy += tempChangeSolid(mass, 0, finalTemp, finalPhase, endothermic); 
+            }
+	
+		}
 		
-					System.out.println("Total Heat Energy: " + round(heatEnergy) + "kJ"); 
-
+		//end of section for initial phase: vapor 
+	
+		System.out.println("Total Heat Energy: " + round(heatEnergy) + "kJ"); 
+		
 	} 
+	
 	//main ends here 
 
-public static double tempChangeSolid(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) { 
-		if(!endPhase.equals("solid")) 
-	endTemp = 0; double energyChange = round(mass*0.002108*(endTemp - startTemp)); 
-		if(endothermic) 
-	System.out.println("Heating (solid): " + energyChange + "kJ"); else 
-
-	System.out.println("Cooling (solid): " + energyChange + "kJ"); return energyChange; } public static double tempChangeVapor(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) { 
-
-		if(!endPhase.equals("vapor")) 
-	endTemp = 100; double energyChange = round(mass*0.001996*(endTemp - startTemp)); if(endothermic) 
-	System.out.println("Heating (vapor): " + energyChange + "kJ"); else 
-	System.out.println("Cooling (vapor): " + energyChange + "kJ"); return energyChange; } 
+        public static double tempChangeSolid(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) 
+        { 
+	    	if(!endPhase.equals("solid")) 
+    	        endTemp = 0; double energyChange = round(mass*0.002108*(endTemp - startTemp)); 
+		    if(endothermic) 
+    	        System.out.println("Heating (solid): " + energyChange + "kJ"); 
+    	    else 
+    	        System.out.println("Cooling (solid): " + energyChange + "kJ"); 
+    	return energyChange; 
+        } 
+        
+        public static double tempChangeVapor(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) 
+        { 
+		    if(!endPhase.equals("vapor")) 
+	            endTemp = 100; double energyChange = round(mass*0.001996*(endTemp - startTemp)); 
+	        if(endothermic) 
+        	    System.out.println("Heating (vapor): " + energyChange + "kJ"); 
+    	    else 
+	            System.out.println("Cooling (vapor): " + energyChange + "kJ"); 
+	    return energyChange; 
+        } 
 	
-public static double tempChangeLiquid(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) { 
+        public static double tempChangeLiquid(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) 
+        { 
 			if(endPhase.equals("solid")) 
 			    endTemp = 0; 
 			if(endPhase.equals("vapor")) 
-	endTemp = 100; double energyChange = round(mass*0.004184*(endTemp - startTemp)); if(endothermic) 
-	System.out.println("Heating (liquid): " + energyChange + "kJ"); else 
-
-	System.out.println("Cooling (liquid): " + energyChange + "kJ"); return energyChange; } 
+    	        endTemp = 100; double energyChange = round(mass*0.004184*(endTemp - startTemp)); 
+    	    if(endothermic) 
+    	        System.out.println("Heating (liquid): " + energyChange + "kJ"); 
+    	    else 
+    	        System.out.println("Cooling (liquid): " + energyChange + "kJ"); 
+    	return energyChange; 
+        } 
 	
-    public static double fusion(double mass, boolean endothermic) { 
+        public static double fusion(double mass, boolean endothermic) 
+        { 
 		double energyChange; 
-		if(endothermic) { 
-		energyChange = round(0.333*mass); System.out.println("Melting: " + energyChange + "kJ"); } else { 
-
-		energyChange = round(-0.333*mass); System.out.println("Freezing: " + energyChange + "kJ"); } return energyChange; } 
+		    if(endothermic) 
+		    { 
+		    energyChange = round(0.333*mass); 
+		        System.out.println("Melting: " + energyChange + "kJ"); 
+		    } 
+		    else 
+		    { 
+		        energyChange = round(-0.333*mass); 
+		        System.out.println("Freezing: " + energyChange + "kJ"); 
+		    } 
+		return energyChange; 
+        } 
 	
-	public static double vaporization(double mass, boolean endothermic) { 
+    	public static double vaporization(double mass, boolean endothermic) 
+    	{ 
 		double energyChange; 
-		if(endothermic) { 
-	    energyChange = round(2.257*mass); System.out.println("Evaporation: " + energyChange + "kJ"); } 
-		else { 
-		energyChange = round(-2.257*mass); System.out.println("Condensation: " + energyChange + "kJ"); } return energyChange; } public static double round(double x) { 
+		    if(endothermic) 
+		    { 
+	            energyChange = round(2.257*mass); 
+	            System.out.println("Evaporation: " + energyChange + "kJ"); 
+		    } 
+		    else 
+		    { 
+		        energyChange = round(-2.257*mass); 
+		        System.out.println("Condensation: " + energyChange + "kJ"); 
+		    } 
+	    return energyChange; 
+    	} 
+		
+		public static double round(double x) 
+		{ 
 	    	x *= 1000; 
 			if(x > 0) 
-		return (int)(x + 0.5)/1000.0; else 
-			return (int)(x - 0.5)/1000.0; } 
-		
-		//supporting methods here 
-} //entire class ends here 
-
+		        return (int)(x + 0.5)/1000.0; 
+		    else 
+			    return (int)(x - 0.5)/1000.0; 
+		} 
+		    //supporting methods here 
+} 
+    //entire class ends here 
