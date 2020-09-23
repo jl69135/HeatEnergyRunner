@@ -101,7 +101,7 @@ public class HeatEnergyRunner
 		
 		//end of section for initial phase: vapor 
 	
-		System.out.println("Total Heat Energy: " + round(heatEnergy) + "kJ"); 
+		System.out.println("Total Heat Energy: " + round(heatEnergy) + " kJ"); 
 		
 	} 
 	
@@ -110,22 +110,24 @@ public class HeatEnergyRunner
         public static double tempChangeSolid(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) 
         { 
 	    	if(!endPhase.equals("solid")) 
-    	        endTemp = 0; double energyChange = round(mass*0.002108*(endTemp - startTemp)); 
+    	        endTemp = 0; 
+    	        double energyChange = round(mass*0.002108*(endTemp - startTemp)); 
 		    if(endothermic) 
-    	        System.out.println("Heating (solid): " + energyChange + "kJ"); 
+    	        System.out.println("Heating (solid): " + energyChange + " kJ"); 
     	    else 
-    	        System.out.println("Cooling (solid): " + energyChange + "kJ"); 
+    	        System.out.println("Cooling (solid): " + energyChange + " kJ"); 
     	return energyChange; 
         } 
         
         public static double tempChangeVapor(double mass, double startTemp, double endTemp, String endPhase, boolean endothermic) 
         { 
 		    if(!endPhase.equals("vapor")) 
-	            endTemp = 100; double energyChange = round(mass*0.001996*(endTemp - startTemp)); 
+	            endTemp = 100; 
+	            double energyChange = round(mass*0.001996*(endTemp - startTemp)); 
 	        if(endothermic) 
-        	    System.out.println("Heating (vapor): " + energyChange + "kJ"); 
+        	    System.out.println("Heating (vapor): " + energyChange + " kJ"); 
     	    else 
-	            System.out.println("Cooling (vapor): " + energyChange + "kJ"); 
+	            System.out.println("Cooling (vapor): " + energyChange + " kJ"); 
 	    return energyChange; 
         } 
 	
@@ -134,11 +136,12 @@ public class HeatEnergyRunner
 			if(endPhase.equals("solid")) 
 			    endTemp = 0; 
 			if(endPhase.equals("vapor")) 
-    	        endTemp = 100; double energyChange = round(mass*0.004184*(endTemp - startTemp)); 
+    	        endTemp = 100; 
+    	    double energyChange = round(mass*0.004184*(endTemp - startTemp)); 
     	    if(endothermic) 
-    	        System.out.println("Heating (liquid): " + energyChange + "kJ"); 
+    	        System.out.println("Heating (liquid): " + energyChange + " kJ"); 
     	    else 
-    	        System.out.println("Cooling (liquid): " + energyChange + "kJ"); 
+    	        System.out.println("Cooling (liquid): " + energyChange + " kJ"); 
     	return energyChange; 
         } 
 	
@@ -148,12 +151,12 @@ public class HeatEnergyRunner
 		    if(endothermic) 
 		    { 
 		    energyChange = round(0.333*mass); 
-		        System.out.println("Melting: " + energyChange + "kJ"); 
+		        System.out.println("Melting: " + energyChange + " kJ"); 
 		    } 
 		    else 
 		    { 
 		        energyChange = round(-0.333*mass); 
-		        System.out.println("Freezing: " + energyChange + "kJ"); 
+		        System.out.println("Freezing: " + energyChange + " kJ"); 
 		    } 
 		return energyChange; 
         } 
@@ -164,12 +167,12 @@ public class HeatEnergyRunner
 		    if(endothermic) 
 		    { 
 	            energyChange = round(2.257*mass); 
-	            System.out.println("Evaporation: " + energyChange + "kJ"); 
+	            System.out.println("Evaporation: " + energyChange + " kJ"); 
 		    } 
 		    else 
 		    { 
 		        energyChange = round(-2.257*mass); 
-		        System.out.println("Condensation: " + energyChange + "kJ"); 
+		        System.out.println("Condensation: " + energyChange + " kJ"); 
 		    } 
 	    return energyChange; 
     	} 
